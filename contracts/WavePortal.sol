@@ -19,32 +19,26 @@ contract WavePortal {
 
     Wave[] waves;
 
-    /*
-     * This is an address => uint mapping, meaning I can associate an address with a number!
-     * In this case, I'll be storing the address with the last time the user waved at us.
-     */
-
+    //  This is an address => uint mapping, meaning I can associate an address with a number!
+    //  In this case, I'll be storing the address with the last time the user waved at us.
     mapping(address => uint256) public lastWavedAt;
 
     constructor() payable {
-        console.log("We have been constructed!");
+        console.log("Contract is constructed!");
 
         // setting the initial seed
         seed = (block.timestamp + block.difficulty) % 100;
     }
 
     function wave(string memory _message) public {
-        /*
-         * We need to make sure the current timestamp is at least 30-minutes bigger than the last timestamp we stored
-         */
+        //  We need to make sure the current timestamp is at least 30-minutes bigger than the last timestamp we stored
         require(
             lastWavedAt[msg.sender] + 30 minutes < block.timestamp,
             "Wait 30m"
         );
 
-        /*
-         * Update the current timestamp we have for the user
-         */
+        // Update the current timestamp we have for the user
+
         lastWavedAt[msg.sender] = block.timestamp;
 
         totalWaves += 1;
